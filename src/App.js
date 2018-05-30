@@ -7,20 +7,27 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    subscribeToFileChanges((err, filecontents) => this.setState({
-      filecontents
-    }));
     this.state = {
-      filecontents: 'nothing yet'
+      filecontents: {}
     };
+
+    subscribeToFileChanges(this.fileModCb, )
+
   }
+
+  fileModCb(err, file) {
+    this.setState({file});
+  }
+
   render() {
+    const { filecontents } = this.state;
+    const str = JSON.stringify(filecontents);
     return (
       <div className="App">
         <header className="App-header">
           <h1>Minimal file watcher client</h1>
         </header>
-        {this.state.filecontents}
+        {str}
       </div>
     );
   }
